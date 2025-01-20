@@ -1,0 +1,40 @@
+DATASET FOR model0 (M0):
+Dataset name: BTC_high_labeled_dataset_m1.csv
+start = "1609455600" #01.01.2021
+periods = 48 # number of 30 day periods - 48 is approx 4 years
+tickers = ["BTCUSDT"]
+
+options = ["high", "low", "close", "volume"]
+EPOCHS=1
+THRESHOLD=0.0 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
+PREDICTOR="BTCUSDT:close"
+
+
+
+DATASET FOR model1 (M1):
+Dataset name: BTC_high_labeled_dataset_m1.csv
+start = "1609455600" #01.01.2021
+periods = 48 # number of 30 day periods - 48 is approx 4 years
+tickers = ["BTCUSDT"]
+
+options = ["high", "low", "close", "volume"]
+EPOCHS=5
+THRESHOLD=0.5 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
+PREDICTOR="BTCUSDT:high"
+
+
+
+DATASET FOR model1_1 (M1.1):
+Dataset name: SOL_high_labeled_dataset_m1.csv
+start = "1609455600" #01.01.2021
+periods = 48 # number of 30 day periods - 48 is approx 4 years
+tickers = ["SOLUSDT"]
+
+
+options = ["high", "low", "close", "volume"]
+EPOCHS=5
+THRESHOLD=0.5 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
+PREDICTOR="SOLUSDT:high"
+TIME = "SOLUSDT:time"
+data = []
+
