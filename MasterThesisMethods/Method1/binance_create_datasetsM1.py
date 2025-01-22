@@ -119,18 +119,21 @@ def create_labeled_dataset(dataframe, tickers, options, value, epochs, threshold
 
 
 if __name__ == "__main__":
-    start = "1609455600" #01.01.2021
-    periods = 48 # number of 30 day periods - 48 is approx 4 years
+    # start = "1609455600" #01.01.2021
+    start = "1483225200"
+    periods = 96 # approx 8 years
+    # periods = 48 # number of 30 day periods - 48 is approx 4 years
     # tickers = ["BTCUSDT", "ETHUSDT", "XRPUSDT", "BNBUSDT", "SOLUSDT", "DOGEUSDT", "ADAUSDT", "TRXUSDT", "AVAXUSDT"] # BASE
     # tickers = ["BTCUSDT"] # M1
-    tickers = ["SOLUSDT"] # M1.1
+    # tickers = ["SOLUSDT"] # M1.1
+    tickers = ["LTCUSDT"]
 
 
-    options = ["high", "low", "close", "volume"] # BASE
+    options = ["high", "low", "close", "volume"] # BASE OPTIONS
     EPOCHS=5
-    THRESHOLD=0.7 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
-    PREDICTOR="SOLUSDT:high"
-    TIME = "SOLUSDT:time"
+    THRESHOLD=0.5 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
+    PREDICTOR="LTCUSDT:high"
+    TIME = "LTCUSDT:time"
     data = []
 
     print("Initiating download sequence...")
