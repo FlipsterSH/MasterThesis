@@ -5,8 +5,7 @@ import statistics
 high_thresh = 0.5 # threshold for counting high values
 low_thresh = -0.5 # threshold for counting low values
 
-# dataframe = pd.read_csv("statistical_analysis/test_dataset.csv", index_col=False)
-dataframe = pd.read_csv("statistical_analysis/labeled_dataset_M1.csv", index_col=False)
+dataframe = pd.read_csv("statistical_analysis/4y_hourly_candlestick.csv", index_col=False)
 
 ###################### THIS ANALYSIS CHECK FOR NAN VALUES AND ZERO DIVISION ERRORS WITHIN THE DATASET #############################
 print("DATASET ERROR ANALYSIS")
