@@ -120,20 +120,20 @@ def create_labeled_dataset(dataframe, tickers, options, value, epochs, threshold
 
 if __name__ == "__main__":
     # start = "1609455600" #01.01.2021
-    start = "1483225200"
-    periods = 96 # approx 8 years
+    start = "1514761200" # 01.01.2018
+    periods = 85 # approx 8 years
     # periods = 48 # number of 30 day periods - 48 is approx 4 years
     # tickers = ["BTCUSDT", "ETHUSDT", "XRPUSDT", "BNBUSDT", "SOLUSDT", "DOGEUSDT", "ADAUSDT", "TRXUSDT", "AVAXUSDT"] # BASE
     # tickers = ["BTCUSDT"] # M1
     # tickers = ["SOLUSDT"] # M1.1
-    tickers = ["LTCUSDT"]
+    tickers = ["BTCUSDT"]
 
 
     options = ["high", "low", "close", "volume"] # BASE OPTIONS
     EPOCHS=5
     THRESHOLD=0.5 # Threshold value for lableling, ie. BTCUSDT:close = 0.5 > 0.0 => label = 1, if BTCUSDT:close = -0.5 < 0.0 => 0
-    PREDICTOR="LTCUSDT:high"
-    TIME = "LTCUSDT:time"
+    PREDICTOR="BTCUSDT:high"
+    TIME = "BTCUSDT:time"
     data = []
 
     print("Initiating download sequence...")
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     labeled_dataset = create_labeled_dataset(concatenated_data, tickers, options, value=PREDICTOR, epochs=EPOCHS, threshold=THRESHOLD, time=TIME)
     print(labeled_dataset)
     print(len(labeled_dataset.keys()))
-    labeled_dataset.to_csv("MasterThesisMethods/Method1/labeled_dataset_M1.csv")
+    labeled_dataset.to_csv("MasterThesisMethods/Method1/datasets/BTC_high_dataset_M1_combined.csv")
 
 
 

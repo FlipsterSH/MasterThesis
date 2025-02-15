@@ -81,6 +81,22 @@
 
 
 
+## Dataset for model 'combined'
+- **Dataset name**: `BTC_LTC_high_dataset_M1_combined.csv`
+- **Start date**: `1514761200` (01.01.2018)
+- **Periods**: 85 (each period represents 30 days, approximately 7 years)
+- **Tickers**: `["LTCUSDT"]`
+- **Options**: `["high", "low", "close", "volume"]`
+- **Epochs**: `5`
+- **Threshold**: `0.5`  
+  - Example:  
+    - If `BTCUSDT:close = 0.5 > 0.0`, then `label = 1`  
+    - If `BTCUSDT:close = -0.5 < 0.0`, then `label = 0`
+- **Predictor**: `LTCUSDT:high`
+- **Time column**: `LTCUSDT:time`
+- **Data structure**: `[]`
+
+
 
 
 ## NOTES TO SELF: TRY 2 HOUR INTERVALS, COMBINE DATASETS FROM MULTIPLE COINS (NOT IN WIDTH BUT IN DEPTH), DO STATISTICAL ANALYSIS FIRST OF THE DATA AND FIND SUITABLE LABEL (MABYE 1%), 

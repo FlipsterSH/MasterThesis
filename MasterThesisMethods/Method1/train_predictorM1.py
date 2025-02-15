@@ -4,7 +4,8 @@ import pandas as pd
 # train_data_frame = pd.read_csv("datasets/train_data_frame")
 # test_data_frame = pd.read_csv("datasets/test_data_frame")
 # train_data_frame = pd.read_csv("MasterThesisMethods/Method1/LTC_high_labeled_dataset_M1_1.csv", nrows=30000)
-train_data_frame = pd.read_csv("MasterThesisMethods/Method1/LTC_high_labeled_dataset_M1.csv", nrows=56500)
+# train_data_frame = pd.read_csv("MasterThesisMethods/Method1/LTC_high_labeled_dataset_M1.csv", nrows=56500)
+train_data_frame = pd.read_csv("MasterThesisMethods/Method1/datasets/BTC_LTC_high_dataset_M1_combined.csv", nrows=100000)
 
 print(train_data_frame)
 

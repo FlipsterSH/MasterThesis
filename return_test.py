@@ -1,11 +1,11 @@
 import random
 import statistics as st
 
-NUM_TRADES = 6 # number of trades within period
-WINR = 100 # winrate in percentage
+NUM_TRADES = 100 # number of trades within period
+WINR = 87 # winrate in percentage
 NUM_SIM = 1000
-GAIN = 3.945 # gain in percent
-LOSS = 0
+GAIN = 5 # gain in percent
+LOSS = 20
 
 
 sims = []
