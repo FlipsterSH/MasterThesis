@@ -250,8 +250,6 @@ def calculate_sharpe_ratio(daily_returns, risk_free_rate=0.0, annualize=True):
     # Calculate the daily Sharpe Ratio
     # Sharpe = (mean_return - risk_free_rate) / volatility
     daily_sharpe = (mean_return - risk_free_rate) / std_dev
-    print(f"MEAN RETURN: {mean_return}")
-    print(f"ST_DEV: {std_dev}")
     
     # Annualize the Sharpe Ratio (assuming ~252 trading days per year)
     if annualize:
