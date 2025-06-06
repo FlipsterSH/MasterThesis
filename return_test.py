@@ -1,11 +1,11 @@
 import random
 import statistics as st
 
-NUM_TRADES = 100 # number of trades within period
-WINR = 87 # winrate in percentage
+NUM_TRADES = 1061 # number of trades within period
+WINR = 71 # winrate in percentage
 NUM_SIM = 1000
-GAIN = 5 # gain in percent
-LOSS = 20
+GAIN = 0.5 # gain in percent
+LOSS = 1.5
 
 
 sims = []
@@ -21,6 +21,6 @@ for sim in range(NUM_SIM):
 
     sims.append(start)
 
-print(st.mean(sims))
 
+print(f"ESTIMATED RETURN: {(st.mean(sims) - 1) * 100} %")
 

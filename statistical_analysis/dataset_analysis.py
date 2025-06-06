@@ -2,8 +2,8 @@ import pandas as pd
 from supporting_functions import *
 import statistics
 
-high_thresh = 0.5 # threshold for counting high values
-low_thresh = -0.5 # threshold for counting low values
+high_thresh = 0.1 # threshold for counting high values
+low_thresh = -0.1 # threshold for counting low values
 
 dataframe = pd.read_csv("statistical_analysis/4y_hourly_candlestick.csv", index_col=False)
 

@@ -1,5 +1,7 @@
 import numpy as np
 from datetime import datetime
+import re
+import pandas as pd
 
 def percent_difference(before, after):
     """
@@ -251,12 +253,78 @@ def calculate_sharpe_ratio(daily_returns, risk_free_rate=0.0, annualize=True):
     # Sharpe = (mean_return - risk_free_rate) / volatility
     daily_sharpe = (mean_return - risk_free_rate) / std_dev
     
-    # Normalize the Sharpe Ratio (assuming 10 000 hours over time period)
+    # Annualize the Sharpe Ratio (assuming ~252 trading days per year)
     if annualize:
-        return daily_sharpe * np.sqrt(10000) # assuming 10 000 hours across time period
+        return daily_sharpe * np.sqrt(10000) # annualizing for hourly annual data
     else:
         return daily_sharpe
 
+
+
+def analyze_feature_importance1(feature_names, importances):
+    """
+    Print a short report on a model’s feature-importance vector.
+
+    Parameters
+    ----------
+    feature_names : list[str]
+        All feature names, e.g. ["SOLUSDT:high4", "SOLUSDT:low2", ...]
+    importances : list[float]
+        Matching importance values, same length/order as `feature_names`
+    """
+
+    METRIC_RE = re.compile(r":([a-zA-Z]+?)(\d+)$")   # capture metric & hour suffix
+
+    if len(feature_names) != len(importances):
+        raise ValueError("feature_names and importances must be the same length!")
+
+    # ── Build a DataFrame ────────────────────────────────────────────────────
+    df = pd.DataFrame(
+        {"feature": feature_names, "importance": importances}
+    ).assign(
+        metric=lambda d: d["feature"].str.extract(METRIC_RE)[0].str.lower(),
+        hour=lambda d: pd.to_numeric(
+            d["feature"].str.extract(METRIC_RE)[1], errors="coerce"
+        ),
+    )
+
+    # Drop rows we could not parse
+    df = df.dropna(subset=["metric", "hour"]).copy()
+    df["hour"] = df["hour"].astype(int)
+
+    # ── 1. % of positive importances ────────────────────────────────────────
+    pct_pos = (df["importance"] > 0).mean() * 100
+
+    # ── 2. Rank by hour (sum of importances per lag) ────────────────────────
+    hour_scores = df.groupby("hour")["importance"].sum().sort_values(ascending=False)
+    hour_ranking = hour_scores.index.tolist()
+
+    # ── 3. Rank by metric (sum of importances per metric) ───────────────────
+    metric_scores = (
+        df.groupby("metric")["importance"].sum().sort_values(ascending=False)
+    )
+    metric_ranking = metric_scores.index.tolist()
+
+    # ── Report ──────────────────────────────────────────────────────────────
+    print(f"{pct_pos:.1f}% of the {len(df)} features have **positive** importance.\n")
+
+    print("Ranking by HOUR (most → least important):")
+    for i, h in enumerate(hour_ranking, 1):
+        print(f"  {i}. t-{h:<1}   sum importance = {hour_scores[h]:.6f}")
+
+    print("\nRanking by METRIC (most → least important):")
+    for i, m in enumerate(metric_ranking, 1):
+        print(f"  {i}. {m:<6} sum importance = {metric_scores[m]:.6f}")
+
+    top_features = (
+        df.loc[df["importance"].abs().sort_values(ascending=False).index]
+        .head(10)[["feature", "importance"]]
+    )
+    print("\nTop 10 individual features:")
+    for feat, imp in top_features.itertuples(index=False):
+        print(f"  {feat:<25} {imp:.6f}")
+
+    return
 
 
 
@@ -277,4 +345,20 @@ if __name__ == "__main__":
     # percent_differences = calculate_percent_differences(stock_prices)
     # print(percent_differences)
 
-    print(normalize_list(stock_prices))
+    # print(normalize_list(stock_prices))
+
+
+    names = [
+        "SOLUSDT:low4", "SOLUSDT:high4", "SOLUSDT:high3", "SOLUSDT:low2",
+        "SOLUSDT:low3", "SOLUSDT:low1", "SOLUSDT:high0", "SOLUSDT:volume4",
+        "SOLUSDT:close3", "SOLUSDT:high1", "SOLUSDT:low0", "SOLUSDT:close4",
+        "SOLUSDT:close0", "SOLUSDT:volume3", "SOLUSDT:close2", "SOLUSDT:high2",
+        "SOLUSDT:volume1", "SOLUSDT:close1", "SOLUSDT:volume0", "SOLUSDT:volume2",
+    ]
+    scores = [
+        0.02372, 0.01824, 0.01032, 0.00704, 0.00572, 0.00520, 0.00248,
+        0.00188, 0.00172, 0.00160, 0.00144, 0.00092, 0.00064, 0.00016,
+        -0.00028, -0.00084, -0.00084, -0.00092, -0.00236, -0.00260
+    ]
+
+    analyze_feature_importance1(names, scores)
