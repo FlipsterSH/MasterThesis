@@ -1,0 +1,5 @@
+.venv
+__pycache__
+AutogluonModels
+API_KEYS2.py
+dataset_from_binance.csv
