@@ -1,0 +1,1 @@
+This was the main code in early stages, but the jupiter notebook folders are now where the main code and experiments are stored
